@@ -119,6 +119,22 @@ export const smartAlerts = [
     time: '8 min ago',
     icon: '✅',
   },
+  {
+    id: 4,
+    type: 'info',
+    title: 'Parking Update',
+    message: 'Lot P2 (South) is now 95% full. If you parked there, plan extra time for exit.',
+    time: '12 min ago',
+    icon: '🅿️',
+  },
+  {
+    id: 5,
+    type: 'info',
+    title: 'Weather Update',
+    message: 'Temperature dropping to 20°C after sunset. Light jacket recommended for open stands.',
+    time: '18 min ago',
+    icon: '🌤️',
+  },
 ];
 
 /**
