@@ -86,7 +86,7 @@ export default function TicketInfo() {
 
         {/* QR Code placeholder */}
         <div style={{
-          margin: '16px auto', width: '120px', height: '120px',
+          margin: '16px auto 12px auto', width: '120px', height: '120px',
           background: 'white', borderRadius: '12px',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           flexDirection: 'column', gap: '4px',
@@ -101,6 +101,22 @@ export default function TicketInfo() {
             ))}
           </div>
           <span style={{ fontSize: '0.55rem', color: '#64748b', marginTop: '4px' }}>{ticket.barcode}</span>
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: '16px' }}>
+          <button 
+            style={{
+              display: 'flex', alignItems: 'center', gap: '8px',
+              background: '#000', color: '#fff', border: '1px solid #333',
+              padding: '10px 24px', borderRadius: '24px',
+              fontWeight: 500, fontSize: '0.9rem', cursor: 'pointer',
+              transition: 'background 0.2s',
+            }}
+            onMouseOver={(e) => e.target.style.background = '#222'}
+            onMouseOut={(e) => e.target.style.background = '#000'}
+          >
+            <span style={{ fontSize: '1.2rem' }}>👛</span> Add to Google Wallet
+          </button>
         </div>
       </div>
 

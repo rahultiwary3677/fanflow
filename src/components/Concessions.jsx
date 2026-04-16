@@ -273,7 +273,7 @@ export default function Concessions({ onNavigate }) {
             onClick={handlePlaceOrder}
             id="place-order-btn"
           >
-            Place Express Order · ~{maxPrepTime + 2} min total
+            Pay with Google Pay · ~{maxPrepTime + 2} min
           </button>
         </div>
       )}

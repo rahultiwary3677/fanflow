@@ -213,6 +213,13 @@ export default function VenueMap() {
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--accent-primary)', animation: 'pulse-glow 2s infinite' }}></span> You
           </span>
         </div>
+        <div style={{
+          position: 'absolute', top: '10px', right: '10px',
+          fontSize: '0.65rem', color: 'rgba(255,255,255,0.6)', fontWeight: 600,
+          background: 'rgba(0,0,0,0.4)', padding: '4px 8px', borderRadius: '4px'
+        }}>
+          🗺️ Powered by Google Maps
+        </div>
       </div>
 
       {/* Selected POI details */}

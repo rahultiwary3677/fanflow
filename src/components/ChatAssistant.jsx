@@ -12,7 +12,7 @@ export default function ChatAssistant() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: `👋 **Welcome to FanFlow AI!**
+      content: `👋 **Welcome to FanFlow AI, powered by Google Gemini!**
 
 I'm your smart venue assistant for today's match at **Apex Arena**. I have real-time data on crowd levels, wait times, and optimal routes.
 
