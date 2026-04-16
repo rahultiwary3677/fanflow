@@ -36,7 +36,7 @@ export default function Notifications() {
   }
 
   return (
-    <div className="notifications-view animate-fade-in">
+    <div className="notifications-view animate-slide-up">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
         <h2 style={{ fontSize: '1.3rem', fontWeight: 700 }}>🔔 Smart Alerts</h2>
         {visibleAlerts.length > 0 && (
@@ -56,7 +56,7 @@ export default function Notifications() {
       </p>
 
       {visibleAlerts.length === 0 ? (
-        <div className="glass-panel" style={{ padding: '40px 20px', textAlign: 'center' }}>
+        <div className="glass-panel animate-scale-in" style={{ padding: '40px 20px', textAlign: 'center' }}>
           <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>✨</div>
           <p style={{ fontWeight: 600, marginBottom: '4px' }}>All caught up!</p>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
@@ -68,7 +68,7 @@ export default function Notifications() {
           {visibleAlerts.map((alert, i) => (
             <div
               key={alert.id}
-              className="glass-panel animate-fade-in"
+              className="glass-panel animate-slide-up"
               style={{
                 padding: '16px',
                 ...getAlertStyle(alert.type),
@@ -117,8 +117,9 @@ export default function Notifications() {
           ].map((item, i) => (
             <div
               key={i}
-              className="glass-panel"
+              className="glass-panel animate-slide-up"
               style={{
+                animationDelay: `${i * 0.1 + 0.3}s`,
                 padding: '12px 16px', display: 'flex', gap: '10px', alignItems: 'center',
                 fontSize: '0.85rem',
               }}

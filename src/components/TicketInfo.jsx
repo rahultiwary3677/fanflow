@@ -28,9 +28,9 @@ export default function TicketInfo() {
   }
 
   return (
-    <div className="ticket-view animate-fade-in">
+    <div className="ticket-view animate-slide-up">
       {/* Digital Ticket Card */}
-      <div className="ticket-card glass-panel">
+      <div className="ticket-card glass-panel animate-scale-in">
         <div className="ticket-header">
           <div>
             <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 600 }}>
@@ -106,14 +106,14 @@ export default function TicketInfo() {
 
       {/* Quick Info Cards */}
       <div className="ticket-info-cards">
-        <div className="glass-panel info-card">
+        <div className="glass-panel info-card animate-slide-up" style={{ animationDelay: '0.1s' }}>
           <span style={{ fontSize: '1.5rem' }}>🚪</span>
           <div>
             <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Entry Gate</div>
             <div style={{ fontWeight: 700 }}>{ticket.gate}</div>
           </div>
         </div>
-        <div className="glass-panel info-card">
+        <div className="glass-panel info-card animate-slide-up" style={{ animationDelay: '0.15s' }}>
           <span style={{ fontSize: '1.5rem' }}>🅿️</span>
           <div>
             <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Parking</div>
@@ -123,7 +123,7 @@ export default function TicketInfo() {
       </div>
 
       {/* Emergency SOS */}
-      <div className="glass-panel" style={{ padding: '16px', display: 'flex', alignItems: 'center', gap: '14px' }}>
+      <div className="glass-panel animate-slide-up" style={{ padding: '16px', display: 'flex', alignItems: 'center', gap: '14px', animationDelay: '0.2s' }}>
         <div style={{
           width: '48px', height: '48px', borderRadius: '50%',
           background: 'rgba(239, 68, 68, 0.15)', border: '2px solid var(--danger)',
@@ -152,7 +152,7 @@ export default function TicketInfo() {
       </div>
 
       {/* Feedback Section */}
-      <div className="glass-panel" style={{ padding: '20px' }}>
+      <div className="glass-panel animate-slide-up" style={{ padding: '20px', animationDelay: '0.25s' }}>
         <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '8px' }}>⭐ Rate Your Experience</h3>
         {feedbackSent ? (
           <div style={{ textAlign: 'center', padding: '12px 0' }}>
@@ -184,7 +184,7 @@ export default function TicketInfo() {
             </div>
             {rating > 0 && (
               <button
-                className="action-btn primary animate-fade-in"
+                className="action-btn primary animate-scale-in"
                 onClick={handleFeedbackSubmit}
               >
                 Submit Rating ({rating}/5)

@@ -64,8 +64,8 @@ export default function Concessions({ onNavigate }) {
     const totalWait = stand.wait + maxPrepTime;
 
     return (
-      <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        <div className="glass-panel widget" style={{ textAlign: 'center' }}>
+      <div className="animate-slide-up" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div className="glass-panel widget animate-scale-in" style={{ textAlign: 'center' }}>
           <div style={{ fontSize: '3rem', marginBottom: '8px' }}>✅</div>
           <h2 style={{ fontSize: '1.3rem', fontWeight: 700, marginBottom: '8px' }}>Order Placed!</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
@@ -130,7 +130,7 @@ export default function Concessions({ onNavigate }) {
   }
 
   return (
-    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <div className="animate-slide-up" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       {/* Header */}
       <div>
         <h2 style={{ fontSize: '1.3rem', fontWeight: 700, marginBottom: '4px' }}>
@@ -142,7 +142,7 @@ export default function Concessions({ onNavigate }) {
       </div>
 
       {/* Pickup stand status */}
-      <div className="glass-panel widget">
+      <div className="glass-panel widget animate-scale-in" style={{ animationDelay: '0.1s' }}>
         <div className="widget-title">📍 Pickup Locations — Live Wait Times</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           {foodStands.map(stand => (
@@ -197,10 +197,11 @@ export default function Concessions({ onNavigate }) {
 
       {/* Menu grid */}
       <div className="food-grid">
-        {filteredItems.map(item => (
+        {filteredItems.map((item, i) => (
           <div
             key={item.id}
-            className="food-card glass-panel"
+            className="food-card glass-panel animate-scale-in"
+            style={{ animationDelay: `${i * 0.05 + 0.1}s` }}
             onClick={() => addToCart(item)}
             role="button"
             tabIndex={0}
@@ -219,7 +220,7 @@ export default function Concessions({ onNavigate }) {
       {/* Cart floating bar */}
       {cart.length > 0 && (
         <div
-          className="glass-panel animate-fade-in"
+          className="glass-panel animate-slide-up"
           style={{
             position: 'sticky', bottom: '0',
             padding: '16px 20px',

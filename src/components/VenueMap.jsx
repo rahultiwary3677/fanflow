@@ -217,7 +217,7 @@ export default function VenueMap() {
 
       {/* Selected POI details */}
       {selectedPOI && (
-        <div className="glass-panel widget animate-fade-in">
+        <div className="glass-panel widget animate-slide-up">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
               <div className="widget-title">
@@ -253,7 +253,7 @@ export default function VenueMap() {
 
       {/* Route recommendations */}
       {showRoutes && (
-        <div className="glass-panel widget animate-fade-in">
+        <div className="glass-panel widget animate-slide-up" style={{ animationDelay: '0.1s' }}>
           <div className="widget-title">🗺️ Recommended Routes</div>
           {routes.map((route, i) => (
             <div
@@ -290,12 +290,12 @@ export default function VenueMap() {
       {/* Quick stats at the bottom */}
       {!selectedPOI && !showRoutes && (
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-          <div className="glass-panel" style={{ padding: '16px', textAlign: 'center' }}>
+          <div className="glass-panel animate-slide-up" style={{ padding: '16px', textAlign: 'center', animationDelay: '0.1s' }}>
             <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '4px' }}>Venue Capacity</div>
             <div style={{ fontSize: '1.6rem', fontWeight: 800 }}>87%</div>
             <div style={{ fontSize: '0.7rem', color: 'var(--warning)' }}>52,200 / 60,000</div>
           </div>
-          <div className="glass-panel" style={{ padding: '16px', textAlign: 'center' }}>
+          <div className="glass-panel animate-slide-up" style={{ padding: '16px', textAlign: 'center', animationDelay: '0.15s' }}>
             <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '4px' }}>Best Exit</div>
             <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--success)' }}>Gate C</div>
             <div style={{ fontSize: '0.7rem', color: 'var(--success)' }}>East · Low traffic</div>
