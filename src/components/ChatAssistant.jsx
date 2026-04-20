@@ -1,12 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { sendMessage } from '../services/geminiService';
+import { logAppEvent } from '../services/firebase';
 
 /**
  * ChatAssistant Component
- * 
- * AI-powered venue assistant using Google Gemini API.
- * Provides real-time venue guidance, navigation help,
- * food recommendations, and crowd intelligence.
  */
 export default function ChatAssistant() {
   const [messages, setMessages] = useState([
@@ -36,7 +33,7 @@ Try asking me:
 
   // Quick suggestion chips
   const suggestions = [
-    '🚻 Nearest restroom?',
+    ' Nearest restroom?',
     '🍔 Fast food options',
     '📊 Crowd levels',
     '⚽ Live score',
@@ -52,15 +49,20 @@ Try asking me:
     setInput('');
     setIsLoading(true);
 
+    // Track analytics for the query
+    logAppEvent('ai_chat_query', { query_length: messageText.length });
+
     try {
       // Get AI response (Gemini or mock)
       const response = await sendMessage(messageText, messages);
       setMessages(prev => [...prev, { role: 'assistant', content: response }]);
+      logAppEvent('ai_chat_response_success');
     } catch (err) {
       setMessages(prev => [
         ...prev,
         { role: 'assistant', content: '⚠️ Sorry, I encountered an issue. Please try again!' },
       ]);
+      logAppEvent('ai_chat_response_error');
     } finally {
       setIsLoading(false);
       inputRef.current?.focus();

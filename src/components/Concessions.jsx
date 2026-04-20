@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import { menuItems, pointsOfInterest } from '../services/venueData';
+import { logAppEvent } from '../services/firebase';
 
 /**
  * Concessions Component
- * 
- * Food & beverage ordering system with smart pickup routing.
- * Allows pre-ordering to minimize wait time and miss less action.
  */
 export default function Concessions({ onNavigate }) {
   const [cart, setCart] = useState([]);
@@ -55,6 +53,13 @@ export default function Concessions({ onNavigate }) {
     
     setIsProcessing(false);
     setOrderPlaced(true);
+
+    // Track analytics for the purchase
+    logAppEvent('purchase_complete', {
+      value: cartTotal,
+      currency: 'USD',
+      items_count: cartCount
+    });
     
     // Auto-select fastest stand
     const fastest = foodStands.reduce((a, b) => a.wait < b.wait ? a : b);
