@@ -5,6 +5,7 @@ import VenueMap from './components/VenueMap';
 import Concessions from './components/Concessions';
 import Notifications from './components/Notifications';
 import TicketInfo from './components/TicketInfo';
+import MatchCenter from './components/MatchCenter';
 import { eventData } from './services/venueData';
 
 /**
@@ -38,6 +39,7 @@ const Icons = {
 
 const tabs = [
   { id: 'map', label: 'Map', icon: Icons.Map },
+  { id: 'match', label: 'Match', icon: () => <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10 10 10 0 0 1-10-10 10 10 0 0 1 10-10"/><path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M12 2l0 4"/><path d="M12 18l0 4"/><path d="M2 12l4 0"/><path d="M18 12l4 0"/></svg> },
   { id: 'assistant', label: 'Assistant', icon: Icons.Chat },
   { id: 'food', label: 'Food', icon: Icons.Food },
   { id: 'alerts', label: 'Alerts', icon: Icons.Bell, badge: 3 },
@@ -73,7 +75,7 @@ function App() {
           <span className="weather-badge">
             ☀️ {eventData.weather.temp}°C
           </span>
-          <button className="profile-btn" aria-label="Profile">
+          <button className="profile-btn" aria-label="Profile" onClick={() => alert('User Profile settings opened!')}>
             <Icons.User />
           </button>
         </div>
@@ -83,10 +85,17 @@ function App() {
       <main className="main-content" id="main-content">
         {activeTab === 'assistant' && <ChatAssistant />}
         {activeTab === 'map' && <VenueMap />}
+        {activeTab === 'match' && <MatchCenter />}
         {activeTab === 'food' && <Concessions onNavigate={() => setActiveTab('map')} />}
         {activeTab === 'alerts' && <Notifications />}
         {activeTab === 'ticket' && <TicketInfo />}
       </main>
+
+      {/* Animated Background Blobs */}
+      <div className="bg-blobs" aria-hidden="true">
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+      </div>
 
       {/* Bottom Navigation */}
       <nav className="bottom-nav" role="navigation" aria-label="Main navigation">

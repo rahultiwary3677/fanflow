@@ -13,8 +13,7 @@
   max-width: 600px;
   margin: 0 auto;
   position: relative;
-  background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 40%),
-              radial-gradient(circle at bottom left, rgba(139, 92, 246, 0.08), transparent 40%);
+  background: transparent;
 }
 
 /* ---- Live Status Bar ---- */
@@ -643,26 +642,24 @@
 /* --- Tablets (601px - 1024px) --- */
 @media (min-width: 601px) and (max-width: 1024px) {
   .app-container {
-    max-width: 720px;
-    box-shadow: 0 0 60px rgba(0, 0, 0, 0.4);
+    max-width: 100%;
+    height: 100vh;
+    box-shadow: none;
   }
-  .main-content { padding: 0 24px 90px 24px; gap: 20px; }
-  .food-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .food-card { padding: 22px 12px; }
+  .main-content { padding: 0 32px 100px 32px; gap: 24px; }
+  .food-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .food-card { padding: 24px 16px; }
   .food-icon { font-size: 2.5rem; }
-  .chat-message { max-width: 75%; }
-  .map-placeholder { min-height: 360px; }
-  .ticket-info-cards { gap: 16px; }
-  .bottom-nav { height: 76px; padding: 10px 20px 14px; }
-  .nav-item { font-size: 0.72rem; min-width: 64px; }
+  .chat-message { max-width: 70%; }
+  .map-placeholder { min-height: 480px; }
+  .ticket-info-cards { gap: 20px; }
+  .bottom-nav { height: 80px; padding: 12px 30px 16px; }
+  .nav-item { font-size: 0.8rem; min-width: 72px; }
 }
 
 /* --- Desktop (1025px+) --- */
 @media (min-width: 1025px) {
   body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background:
       radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.08), transparent 40%),
       radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.06), transparent 40%),
@@ -670,31 +667,39 @@
   }
 
   .app-container {
-    max-width: 480px;
-    height: 92vh;
-    border-radius: 24px;
-    border: 1px solid var(--glass-border);
-    box-shadow:
-      0 0 80px rgba(0, 0, 0, 0.5),
-      0 0 0 1px rgba(255, 255, 255, 0.05);
+    max-width: 1200px;
+    height: 100vh;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    margin: 0 auto;
     overflow: hidden;
   }
 
   .bottom-nav {
-    border-radius: 0 0 24px 24px;
+    border-radius: 0;
+    height: 90px;
+    padding: 14px 40px 18px;
   }
 
-  .food-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .chat-message { max-width: 80%; }
-  .map-placeholder { min-height: 320px; }
+  .nav-item { font-size: 0.9rem; min-width: 80px; }
+  .main-content { padding: 0 40px 120px 40px; gap: 32px; }
+  .food-grid { grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .chat-message { max-width: 60%; font-size: 1rem; }
+  .map-placeholder { min-height: 600px; }
+  .ticket-info-cards { gap: 24px; }
+  .header { padding: 24px 40px; }
+  .status-bar { padding: 10px 40px; }
 }
 
 /* --- Large Desktop (1400px+) --- */
 @media (min-width: 1400px) {
   .app-container {
-    max-width: 440px;
-    height: 88vh;
+    max-width: 1400px;
+    height: 100vh;
   }
+  .food-grid { grid-template-columns: repeat(5, 1fr); gap: 30px; }
+  .map-placeholder { min-height: 700px; }
 }
 
 /* ---- Landscape phone ---- */

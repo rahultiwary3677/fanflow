@@ -90,8 +90,17 @@ export default function TicketInfo() {
           background: 'white', borderRadius: '12px',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           flexDirection: 'column', gap: '4px',
+          position: 'relative', overflow: 'hidden'
         }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '3px' }}>
+          {/* Scanning Line */}
+          <div style={{
+            position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
+            background: 'var(--accent-primary)', boxShadow: '0 0 10px var(--accent-primary)',
+            zIndex: 2, animation: 'scan 2s linear infinite'
+          }} />
+          <style>{`@keyframes scan { 0% { top: 0; } 100% { top: 100%; } }`}</style>
+          
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '3px', position: 'relative', zIndex: 1 }}>
             {Array.from({ length: 25 }, (_, i) => (
               <div key={i} style={{
                 width: '14px', height: '14px',
@@ -100,7 +109,7 @@ export default function TicketInfo() {
               }}></div>
             ))}
           </div>
-          <span style={{ fontSize: '0.55rem', color: '#64748b', marginTop: '4px' }}>{ticket.barcode}</span>
+          <span style={{ fontSize: '0.55rem', color: '#64748b', marginTop: '4px', position: 'relative', zIndex: 1 }}>{ticket.barcode}</span>
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: '16px' }}>
@@ -114,6 +123,7 @@ export default function TicketInfo() {
             }}
             onMouseOver={(e) => e.target.style.background = '#222'}
             onMouseOut={(e) => e.target.style.background = '#000'}
+            onClick={() => alert('Ticket successfully added to Google Wallet!')}
           >
             <span style={{ fontSize: '1.2rem' }}>👛</span> Add to Google Wallet
           </button>
@@ -162,6 +172,7 @@ export default function TicketInfo() {
             color: 'var(--danger)', fontWeight: 700,
           }}
           id="sos-btn"
+          onClick={() => alert('Emergency SOS activated! Venue security is responding to your location.')}
         >
           SOS
         </button>

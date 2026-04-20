@@ -110,6 +110,22 @@ export default function VenueMap() {
           <ellipse cx="50" cy="50" rx="44" ry="44" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="0.5" />
           <ellipse cx="50" cy="50" rx="35" ry="35" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="0.3" />
 
+          {/* Radar Scanning Line */}
+          <g style={{ transformOrigin: '50% 50%', animation: 'rotate 4s linear infinite' }}>
+            <line x1="50" y1="50" x2="50" y2="6" stroke="var(--accent-primary)" strokeWidth="0.5" opacity="0.3" />
+            <polygon points="50,50 50,6 58,8" fill="url(#radarGradient)" opacity="0.2" />
+          </g>
+
+          <defs>
+            <linearGradient id="radarGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="var(--accent-primary)" stopOpacity="0.5" />
+              <stop offset="100%" stopColor="var(--accent-primary)" stopOpacity="0" />
+            </linearGradient>
+            <style>
+              {`@keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}
+            </style>
+          </defs>
+
           {/* Pitch / center field */}
           <rect x="30" y="30" width="40" height="40" rx="3" fill="rgba(16,185,129,0.08)" stroke="rgba(16,185,129,0.2)" strokeWidth="0.3" />
           <line x1="50" y1="30" x2="50" y2="70" stroke="rgba(16,185,129,0.15)" strokeWidth="0.2" />
