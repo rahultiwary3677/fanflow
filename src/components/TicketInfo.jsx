@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { eventData } from '../services/venueData';
+import { submitFeedback } from '../services/firebase';
 
 /**
  * TicketInfo Component
@@ -8,9 +9,9 @@ import { eventData } from '../services/venueData';
  * parking details, and quick-access venue info.
  */
 export default function TicketInfo() {
-  const [showFeedback, setShowFeedback] = useState(false);
   const [rating, setRating] = useState(0);
   const [feedbackSent, setFeedbackSent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Mock ticket data
   const ticket = {
@@ -23,9 +24,22 @@ export default function TicketInfo() {
     barcode: 'FAN-2026-48291',
   };
 
-  function handleFeedbackSubmit() {
-    setFeedbackSent(true);
+  async function handleFeedbackSubmit() {
+    setIsSubmitting(true);
+    const success = await submitFeedback(rating, "User feedback from ticket view");
+    if (success) {
+      setFeedbackSent(true);
+    } else {
+      alert("Feedback failed to save to cloud center.");
+    }
+    setIsSubmitting(false);
   }
+
+  const handleAddToWallet = () => {
+    // Simulated Google Wallet API call
+    console.log("Calling Google Wallet API: pay.google.com/gp/v/save/...");
+    alert('Calling Google Wallet API...\n\nTicket successfully added to your Google Wallet! 👛');
+  };
 
   return (
     <div className="ticket-view animate-slide-up">
@@ -123,7 +137,7 @@ export default function TicketInfo() {
             }}
             onMouseOver={(e) => e.target.style.background = '#222'}
             onMouseOut={(e) => e.target.style.background = '#000'}
-            onClick={() => alert('Ticket successfully added to Google Wallet!')}
+            onClick={handleAddToWallet}
           >
             <span style={{ fontSize: '1.2rem' }}>👛</span> Add to Google Wallet
           </button>
@@ -133,7 +147,7 @@ export default function TicketInfo() {
       {/* Quick Info Cards */}
       <div className="ticket-info-cards">
         <div className="glass-panel info-card animate-slide-up" style={{ animationDelay: '0.1s' }}>
-          <span style={{ fontSize: '1.5rem' }}>🚪</span>
+          <span style={{ fontSize: '1.5rem' }}>門</span>
           <div>
             <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>Entry Gate</div>
             <div style={{ fontWeight: 700 }}>{ticket.gate}</div>
@@ -182,10 +196,10 @@ export default function TicketInfo() {
       <div className="glass-panel animate-slide-up" style={{ padding: '20px', animationDelay: '0.25s' }}>
         <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '8px' }}>⭐ Rate Your Experience</h3>
         {feedbackSent ? (
-          <div style={{ textAlign: 'center', padding: '12px 0' }}>
+          <div className="animate-scale-in" style={{ textAlign: 'center', padding: '12px 0' }}>
             <div style={{ fontSize: '2rem', marginBottom: '8px' }}>🎉</div>
             <p style={{ fontWeight: 600 }}>Thanks for your feedback!</p>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Your input helps us improve.</p>
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Your input has been saved to Google Cloud.</p>
           </div>
         ) : (
           <>
@@ -213,8 +227,9 @@ export default function TicketInfo() {
               <button
                 className="action-btn primary animate-scale-in"
                 onClick={handleFeedbackSubmit}
+                disabled={isSubmitting}
               >
-                Submit Rating ({rating}/5)
+                {isSubmitting ? 'Syncing with Google Cloud...' : `Submit Rating (${rating}/5)`}
               </button>
             )}
           </>
@@ -223,3 +238,4 @@ export default function TicketInfo() {
     </div>
   );
 }
+

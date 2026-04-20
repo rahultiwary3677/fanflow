@@ -12,6 +12,7 @@ export default function Concessions({ onNavigate }) {
   const [selectedStand, setSelectedStand] = useState(null);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [activeCategory, setActiveCategory] = useState('all');
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const foodStands = pointsOfInterest.filter(p => p.type === 'food');
 
@@ -43,9 +44,20 @@ export default function Concessions({ onNavigate }) {
   const cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
   const maxPrepTime = cart.length > 0 ? Math.max(...cart.map(i => i.prepTime)) : 0;
 
-  function handlePlaceOrder() {
+  async function handlePlaceOrder() {
     if (cart.length === 0) return;
+    
+    // Simulated Google Pay API sequence
+    setIsProcessing(true);
+    console.log("Initializing Google Pay paymentClient...");
+    console.log("Requesting payment data via loadPaymentData()...");
+    
+    // Simulate real network/auth delay
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    setIsProcessing(false);
     setOrderPlaced(true);
+    
     // Auto-select fastest stand
     const fastest = foodStands.reduce((a, b) => a.wait < b.wait ? a : b);
     setSelectedStand(fastest);
@@ -69,7 +81,7 @@ export default function Concessions({ onNavigate }) {
           <div style={{ fontSize: '3rem', marginBottom: '8px' }}>✅</div>
           <h2 style={{ fontSize: '1.3rem', fontWeight: 700, marginBottom: '8px' }}>Order Placed!</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-            Your order #{orderNum} has been sent to
+            Paid with Google Pay. Order #{orderNum} has been sent to
           </p>
           <div style={{
             background: 'rgba(16, 185, 129, 0.1)',
@@ -272,11 +284,28 @@ export default function Concessions({ onNavigate }) {
             className="action-btn primary"
             onClick={handlePlaceOrder}
             id="place-order-btn"
+            disabled={isProcessing}
+            style={{ 
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+              background: isProcessing ? '#000' : 'var(--accent-primary)'
+            }}
           >
-            Pay with Google Pay · ~{maxPrepTime + 2} min
+            {isProcessing ? (
+              <>
+                <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ animation: 'spin 1s linear infinite' }}>
+                  <circle cx="12" cy="12" r="10" stroke="white" strokeWidth="4" fill="none" strokeDasharray="31.4" />
+                </svg>
+                Processing with Google Pay...
+              </>
+            ) : (
+              <>
+                <span style={{ fontSize: '1.1rem' }}>📱</span> Pay with Google Pay
+              </>
+            )}
           </button>
         </div>
       )}
     </div>
   );
 }
+
