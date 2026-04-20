@@ -23,9 +23,21 @@
     <!-- Google Services Integration Meta -->
     <meta name="google-site-verification" content="dummy-verification-code" />
     <meta name="theme-color" content="#020617" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
   </head>
   <body role="application">
     <div id="root" aria-label="FanFlow Web Application"></div>
     <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js');
+        });
+      }
+    </script>
   </body>
 </html>

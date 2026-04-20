@@ -37,7 +37,6 @@ export default function TicketInfo() {
 
   const handleAddToWallet = () => {
     // Simulated Google Wallet API call
-    console.log("Calling Google Wallet API: pay.google.com/gp/v/save/...");
     alert('Calling Google Wallet API...\n\nTicket successfully added to your Google Wallet! 👛');
   };
 

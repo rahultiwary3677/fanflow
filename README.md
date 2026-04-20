@@ -23,31 +23,30 @@ Attending a live sporting event at a 60,000-seat venue is exciting but frustrati
 
 ## 🚀 Features
 
-### 1. 🤖 AI Chat Assistant (Google Gemini Integration)
+##### 1. 🤖 AI Chat Assistant (Official Google SDK)
 - Conversational AI that understands venue context
 - Real-time answers about wait times, routes, scores, and crowd levels
-- Powered by **Google Gemini 2.0 Flash** API with intelligent mock fallback
-- Context-aware suggestions (e.g., "The East restrooms have a 1-min wait vs 8-min at South")
+- Powered by the official **`@google/generative-ai`** SDK (Gemini 2.0 Flash)
+- Intelligent mock fallback for zero-dependency demonstration
 
-### 2. 🗺️ Interactive Venue Map with Live Crowd Heatmap
+### 2. 🔥 Google Firebase Core
+- **Real-time Venue Data**: Live crowd and congestion stats synced via Google Cloud.
+- **Fan Feedback Persistence**: Persistent storage for fan experience ratings and assistance requests.
+
+### 3. 🏟️ Interactive Venue Map with Live Crowd Heatmap
 - SVG-based stadium visualization with animated crowd density zones
 - Color-coded congestion indicators (green/yellow/red)
-- Points of interest (restrooms, food stands, first aid, shops)
 - Tap-to-navigate with smart route recommendations
-- Real-time user location indicator with pulsing animation
+- Rotating **Radar Scanning Effect** for high-tech venue intelligence
 
-### 3. 🍔 Express Food & Beverage Ordering
+### 4. 🍔 Express Food & Beverage Ordering (with Google Pay)
 - Browse full concession menu with prep time estimates
-- Live wait times per pickup location
-- Smart cart with quantity controls
-- Auto-selects the fastest pickup stand
+- **Google Pay Integration**: Simulated official API payment flow with brand-correct UI.
 - One-tap navigation to pickup location after ordering
 
-### 4. 📊 Real-Time Crowd Intelligence
-- Zone-by-zone crowd density monitoring
-- Proactive congestion alerts and exit recommendations
-- Optimal timing suggestions (best time to visit restrooms/food)
-- Parking lot capacity tracking
+### 5. 🎟️ Digital Ticket & Wallet
+- Secure digital ticket with dynamic QR code scanning animation.
+- **Google Wallet Integration**: Add your event tickets to Google Wallet with one tap.
 
 ---
 

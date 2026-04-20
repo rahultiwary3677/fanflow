@@ -36,7 +36,7 @@ export default function Notifications() {
   }
 
   return (
-    <div className="notifications-view animate-slide-up">
+    <div className="notifications-view animate-slide-up" role="region" aria-label="Smart Alerts">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
         <h2 style={{ fontSize: '1.3rem', fontWeight: 700 }}>🔔 Smart Alerts</h2>
         {visibleAlerts.length > 0 && (
@@ -46,6 +46,7 @@ export default function Notifications() {
               background: 'none', border: 'none', color: 'var(--text-secondary)',
               fontSize: '0.8rem', cursor: 'pointer', fontFamily: 'inherit',
             }}
+            aria-label="Clear all alerts"
           >
             Clear all
           </button>
@@ -56,15 +57,15 @@ export default function Notifications() {
       </p>
 
       {visibleAlerts.length === 0 ? (
-        <div className="glass-panel animate-scale-in" style={{ padding: '40px 20px', textAlign: 'center' }}>
-          <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>✨</div>
+        <div className="glass-panel animate-scale-in" style={{ padding: '40px 20px', textAlign: 'center' }} role="status">
+          <div style={{ fontSize: '2.5rem', marginBottom: '12px' }} aria-hidden="true">✨</div>
           <p style={{ fontWeight: 600, marginBottom: '4px' }}>All caught up!</p>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
             We'll notify you when there's something important.
           </p>
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }} role="log" aria-live="polite">
           {visibleAlerts.map((alert, i) => (
             <div
               key={alert.id}
@@ -74,10 +75,11 @@ export default function Notifications() {
                 ...getAlertStyle(alert.type),
                 animationDelay: `${i * 0.08}s`,
               }}
+              role="alert"
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div style={{ display: 'flex', gap: '10px', flex: 1 }}>
-                  <span style={{ fontSize: '1.3rem', flexShrink: 0 }}>{alert.icon}</span>
+                  <span style={{ fontSize: '1.3rem', flexShrink: 0 }} aria-hidden="true">{alert.icon}</span>
                   <div>
                     <div style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '4px' }}>
                       {alert.title}
@@ -85,9 +87,9 @@ export default function Notifications() {
                     <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.4 }}>
                       {alert.message}
                     </p>
-                    <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginTop: '6px', display: 'inline-block' }}>
+                    <time style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginTop: '6px', display: 'inline-block' }}>
                       {alert.time}
-                    </span>
+                    </time>
                   </div>
                 </div>
                 <button
@@ -96,7 +98,7 @@ export default function Notifications() {
                     background: 'none', border: 'none', color: 'var(--text-secondary)',
                     cursor: 'pointer', fontSize: '1rem', padding: '2px 6px', flexShrink: 0,
                   }}
-                  aria-label="Dismiss alert"
+                  aria-label={`Dismiss ${alert.title} alert`}
                 >
                   ✕
                 </button>
@@ -109,7 +111,7 @@ export default function Notifications() {
       {/* Proactive Tips Section */}
       <div style={{ marginTop: '24px' }}>
         <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '12px' }}>💡 Smart Tips</h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }} role="list">
           {[
             { tip: 'Best time for restrooms is during active play — 70% shorter lines', icon: '🚻' },
             { tip: 'Pre-order food now for halftime pickup — avoid the 12-min rush', icon: '🍔' },
@@ -123,8 +125,9 @@ export default function Notifications() {
                 padding: '12px 16px', display: 'flex', gap: '10px', alignItems: 'center',
                 fontSize: '0.85rem',
               }}
+              role="listitem"
             >
-              <span style={{ fontSize: '1.2rem' }}>{item.icon}</span>
+              <span style={{ fontSize: '1.2rem' }} aria-hidden="true">{item.icon}</span>
               <span style={{ color: 'var(--text-secondary)' }}>{item.tip}</span>
             </div>
           ))}
@@ -133,3 +136,4 @@ export default function Notifications() {
     </div>
   );
 }
+

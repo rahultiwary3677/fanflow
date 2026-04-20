@@ -49,8 +49,6 @@ export default function Concessions({ onNavigate }) {
     
     // Simulated Google Pay API sequence
     setIsProcessing(true);
-    console.log("Initializing Google Pay paymentClient...");
-    console.log("Requesting payment data via loadPaymentData()...");
     
     // Simulate real network/auth delay
     await new Promise(resolve => setTimeout(resolve, 1500));

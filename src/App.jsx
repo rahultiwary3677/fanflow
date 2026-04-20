@@ -1,19 +1,25 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import './App.css';
-import ChatAssistant from './components/ChatAssistant';
-import VenueMap from './components/VenueMap';
-import Concessions from './components/Concessions';
-import Notifications from './components/Notifications';
-import TicketInfo from './components/TicketInfo';
-import MatchCenter from './components/MatchCenter';
 import { eventData } from './services/venueData';
+
+// Lazy load components for optimal performance
+const ChatAssistant = lazy(() => import('./components/ChatAssistant'));
+const VenueMap = lazy(() => import('./components/VenueMap'));
+const Concessions = lazy(() => import('./components/Concessions'));
+const Notifications = lazy(() => import('./components/Notifications'));
+const TicketInfo = lazy(() => import('./components/TicketInfo'));
+const MatchCenter = lazy(() => import('./components/MatchCenter'));
 
 /**
  * FanFlow - Smart Sporting Venue Assistant
- * 
- * Main application shell with responsive layout,
- * tab navigation, and live event status bar.
  */
+
+// Loader Component
+const Loader = () => (
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
+    <div className="pulse-glow" style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--accent-gradient)' }}></div>
+  </div>
+);
 
 // Inline SVG Icons
 const Icons = {
@@ -50,9 +56,9 @@ function App() {
   const [activeTab, setActiveTab] = useState('assistant');
 
   return (
-    <div className="app-container">
+    <div className="app-container" role="main">
       {/* Live Event Status Bar */}
-      <div className="status-bar">
+      <div className="status-bar" role="status">
         <div className="status-bar-inner">
           <div className="live-indicator">
             <span className="live-dot"></span>
@@ -66,29 +72,31 @@ function App() {
       </div>
 
       {/* Header */}
-      <header className="header">
+      <header className="header" role="banner">
         <div className="header-left">
           <h1>FanFlow</h1>
-          <span className="header-subtitle">Apex Arena</span>
+          <span className="header-subtitle" aria-label="Venue Name">Apex Arena</span>
         </div>
         <div className="header-right">
-          <span className="weather-badge">
+          <span className="weather-badge" aria-label={`Weather: ${eventData.weather.temp} degrees celsius`}>
             ☀️ {eventData.weather.temp}°C
           </span>
-          <button className="profile-btn" aria-label="Profile" onClick={() => alert('User Profile settings opened!')}>
+          <button className="profile-btn" aria-label="Open User Profile" onClick={() => alert('User Profile settings opened!')}>
             <Icons.User />
           </button>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="main-content" id="main-content">
-        {activeTab === 'assistant' && <ChatAssistant />}
-        {activeTab === 'map' && <VenueMap />}
-        {activeTab === 'match' && <MatchCenter />}
-        {activeTab === 'food' && <Concessions onNavigate={() => setActiveTab('map')} />}
-        {activeTab === 'alerts' && <Notifications />}
-        {activeTab === 'ticket' && <TicketInfo />}
+      <main className="main-content" id="main-content" aria-live="polite">
+        <Suspense fallback={<Loader />}>
+          {activeTab === 'assistant' && <ChatAssistant />}
+          {activeTab === 'map' && <VenueMap />}
+          {activeTab === 'match' && <MatchCenter />}
+          {activeTab === 'food' && <Concessions onNavigate={() => setActiveTab('map')} />}
+          {activeTab === 'alerts' && <Notifications />}
+          {activeTab === 'ticket' && <TicketInfo />}
+        </Suspense>
       </main>
 
       {/* Animated Background Blobs */}
@@ -98,21 +106,23 @@ function App() {
       </div>
 
       {/* Bottom Navigation */}
-      <nav className="bottom-nav" role="navigation" aria-label="Main navigation">
+      <nav className="bottom-nav" role="navigation" aria-label="Primary navigation menu">
         {tabs.map(tab => {
           const IconComponent = tab.icon;
+          const isActive = activeTab === tab.id;
           return (
             <button
               key={tab.id}
-              className={`nav-item ${activeTab === tab.id ? 'active' : ''}`}
+              className={`nav-item ${isActive ? 'active' : ''}`}
               onClick={() => setActiveTab(tab.id)}
               aria-label={tab.label}
+              aria-current={isActive ? 'page' : undefined}
               id={`nav-${tab.id}`}
             >
-              <div className="nav-icon-wrapper">
+              <div className="nav-icon-wrapper" aria-hidden="true">
                 <IconComponent />
-                {tab.badge && activeTab !== tab.id && (
-                  <span className="nav-badge">{tab.badge}</span>
+                {tab.badge && !isActive && (
+                  <span className="nav-badge" aria-label={`${tab.badge} unread notifications`}>{tab.badge}</span>
                 )}
               </div>
               <span>{tab.label}</span>
